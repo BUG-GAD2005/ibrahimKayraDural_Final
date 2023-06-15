@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 007c38ad0843b5140884cfa17a8daa2b, type: 3}
-  m_Name: TestBuilding
+  m_Name: B_House
   m_EditorClassIdentifier: 
-  _buildingName: testBuilding
-  _menuImage: {fileID: 0}
-  _gemCost: 0
-  _goldCost: 0
-  _gemToGenerate: 0
-  _goldToGenerate: 0
-  _generateDuration: 0
+  _buildingName: House
+  _buildingSprite: {fileID: 21300000, guid: 48e3f4f5d432b8f468e55382335e372f, type: 3}
+  _gemCost: 2
+  _goldCost: 2
+  _gemToGenerate: 2
+  _goldToGenerate: 2
+  _generateDuration: 2

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007c38ad0843b5140884cfa17a8daa2b, type: 3}
+  m_Name: F_Train
+  m_EditorClassIdentifier: 
+  _buildingName: Train
+  _buildingSprite: {fileID: 21300000, guid: 999fb09517f67064c99a8db545a58627, type: 3}
+  _gemCost: 6
+  _goldCost: 6
+  _gemToGenerate: 6
+  _goldToGenerate: 6
+  _generateDuration: 6

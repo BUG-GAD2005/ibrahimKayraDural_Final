@@ -19,15 +19,14 @@ public class CellPrefabScript : MonoBehaviour
         if (GameManager.instance != null)
         {
             GameManager.instance.event_GoldValueChanged += event_GoldValueChanged;
-            GameManager.instance.event_GemValueChanged += event_GemValueChanged; ;
+            GameManager.instance.event_GemValueChanged += event_GemValueChanged;
         }
     }
 
-    private void event_GemValueChanged(object sender, int e)
+    void event_GemValueChanged(object sender, int e)
     {
     }
-
-    private void event_GoldValueChanged(object sender, int e)
+    void event_GoldValueChanged(object sender, int e)
     {
     }
 }

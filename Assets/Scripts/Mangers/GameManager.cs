@@ -24,8 +24,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        Invoke("RefreshEvents", 1);
     }
 
+    public void RefreshEvents()
+    {
+        event_GoldValueChanged?.Invoke(this, _gold);
+        event_GemValueChanged?.Invoke(this, _gem);
+    }
     public void AddGold(int amount)
     {
         _gold += amount;
@@ -56,4 +63,6 @@ public class GameManager : MonoBehaviour
             return true;
         }
     }
+    public void TryRemoveGemForButtons(int amount) => TryRemoveGem(amount);
+    public void TryRemoveGoldForButtons(int amount) => TryRemoveGold(amount);
 }

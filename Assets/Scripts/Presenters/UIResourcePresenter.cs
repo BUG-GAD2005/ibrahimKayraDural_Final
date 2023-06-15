@@ -9,8 +9,8 @@ public class UIResourcePresenter : MonoBehaviour
 
     void Start()
     {
-        GameManager.instance.event_GoldValueChanged += event_GoldValueChanged;
-        GameManager.instance.event_GemValueChanged += event_GemValueChanged;
+        GameManager.instance.event_ValueChanged_Gold += event_GoldValueChanged;
+        GameManager.instance.event_ValueChanged_Gem += event_GemValueChanged;
     }
 
     void event_GemValueChanged(object sender, int e)

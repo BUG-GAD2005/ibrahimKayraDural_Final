@@ -7,26 +7,58 @@ using TMPro;
 public class CellPrefabScript : MonoBehaviour
 {
     [SerializeField] Image BuildingImage;
+    [SerializeField] Button button;
+    [SerializeField] GameObject OnOffFilter;
     [SerializeField] TextMeshProUGUI GoldCostText;
     [SerializeField] TextMeshProUGUI GemCostText;
 
-    public void SetValues(Sprite buildingSprite, float goldCost, float gemCost)
+    GameManager gm;
+    int goldCost, gemCost;
+    bool _isEnabled;
+    public bool IsEnabled => _isEnabled;
+
+    public void SetValues(Sprite buildingSprite, int goldCost, int gemCost)
     {
         BuildingImage.sprite = buildingSprite;
-        GoldCostText.text = goldCost.ToString();
-        GemCostText.text = gemCost.ToString();
 
-        if (GameManager.instance != null)
+        GoldCostText.text = goldCost.ToString();
+        this.goldCost = goldCost;
+
+        GemCostText.text = gemCost.ToString();
+        this.gemCost = gemCost;
+
+        gm = GameManager.instance;
+
+        if (gm != null)
         {
-            GameManager.instance.event_GoldValueChanged += event_GoldValueChanged;
-            GameManager.instance.event_GemValueChanged += event_GemValueChanged;
+            gm.event_ValueChanged_Gold += event_GoldValueChanged;
+            gm.event_ValueChanged_Gem += event_GemValueChanged;
         }
     }
 
     void event_GemValueChanged(object sender, int e)
     {
+        ToggleCellEnableness(CostIsAffordable());
     }
     void event_GoldValueChanged(object sender, int e)
     {
+        ToggleCellEnableness(CostIsAffordable());
+    }
+
+    bool CostIsAffordable()
+    {
+        if (gm == null) return false;
+
+        int playerGold = gm.Gold;
+        int playerGem = gm.Gem;
+
+        return goldCost <= playerGold && gemCost <= playerGem;
+    }
+    void ToggleCellEnableness(bool setTo)
+    {
+        OnOffFilter.SetActive(!setTo);
+        if (button != null) button.interactable = setTo;
+
+        _isEnabled = setTo;
     }
 }

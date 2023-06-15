@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c91016cb9c9f76469bf03c6159a6aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingGold: 10
+  startingGem: 10
 --- !u!1 &2951536310678651486
 GameObject:
   m_ObjectHideFlags: 0

@@ -190,14 +190,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 530857476, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 530857476, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 793468855, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -217,6 +209,14 @@ PrefabInstance:
     - target: {fileID: 793468855, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898289476, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: _squareSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 898289476, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: _backgroundOffset
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 928651057, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
       propertyPath: m_AnchorMax.y

@@ -8,9 +8,11 @@ public class ShapePrefabScript : MonoBehaviour
 
     bool isCreated;
 
-    public Transform CreateShape(ShapeName shape)
+    public Transform CreateShape(SO_Building data)
     {
         if (isCreated) return null;
+
+        ShapeName shape = data.Shape;
 
         float squareSize = GameManager.instance.Grid.SquareSize;
         float offset = GameManager.instance.Grid.Offset;
@@ -30,6 +32,11 @@ public class ShapePrefabScript : MonoBehaviour
                     Vector3 targetPos = transform.position;
                     targetPos += new Vector3(x * (squareSize * tempGoScale + offset), -y * (squareSize * tempGoScale + offset), 0);
                     tempGO.transform.position = targetPos;
+
+                    if(tempGO.TryGetComponent(out BuildingSquare BSq))
+                    {
+                        BSq.SetImage(data);
+                    }
                 }
             }
         }

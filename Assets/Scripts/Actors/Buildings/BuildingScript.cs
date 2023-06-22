@@ -34,7 +34,7 @@ public class BuildingScript : MonoBehaviour
 
         if (tempGO.TryGetComponent(out ShapePrefabScript sps))
         {
-            sps.CreateShape(this.buildingData.Shape);
+            sps.CreateShape(this.buildingData);
         }
 
         isInstantiated = true;

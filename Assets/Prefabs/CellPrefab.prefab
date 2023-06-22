@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingImage: {fileID: 3237569797820248400}
-  button: {fileID: 7581899673937114313}
+  _button: {fileID: 7581899673937114313}
   OnOffFilter: {fileID: 4100010249393652496}
   GoldCostText: {fileID: 3237569797003721971}
   GemCostText: {fileID: 3237569797688425205}

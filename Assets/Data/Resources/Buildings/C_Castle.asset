@@ -19,3 +19,4 @@ MonoBehaviour:
   _gemToGenerate: 3
   _goldToGenerate: 3
   _generateDuration: 3
+  _shape: 1

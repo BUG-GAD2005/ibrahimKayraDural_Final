@@ -7,7 +7,7 @@ using TMPro;
 public class CellPrefabScript : MonoBehaviour
 {
     [SerializeField] Image BuildingImage;
-    [SerializeField] Button button;
+    [SerializeField] Button _button;
     [SerializeField] GameObject OnOffFilter;
     [SerializeField] TextMeshProUGUI GoldCostText;
     [SerializeField] TextMeshProUGUI GemCostText;
@@ -15,7 +15,9 @@ public class CellPrefabScript : MonoBehaviour
     GameManager gm;
     int goldCost, gemCost;
     bool _isEnabled;
+
     public bool IsEnabled => _isEnabled;
+    public Button Buton => _button;
 
     public void SetValues(Sprite buildingSprite, int goldCost, int gemCost)
     {
@@ -57,7 +59,7 @@ public class CellPrefabScript : MonoBehaviour
     void ToggleCellEnableness(bool setTo)
     {
         OnOffFilter.SetActive(!setTo);
-        if (button != null) button.interactable = setTo;
+        if (_button != null) _button.interactable = setTo;
 
         _isEnabled = setTo;
     }

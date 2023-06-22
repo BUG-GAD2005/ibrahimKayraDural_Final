@@ -6,6 +6,7 @@ public class UICellPresenter : MonoBehaviour
 {
     [SerializeField] GameObject CellPrefab;
     [SerializeField] Transform CellParent;
+    [SerializeField] BuildingCreator buildingCreator;
 
     void Start()
     {
@@ -19,7 +20,11 @@ public class UICellPresenter : MonoBehaviour
         GameObject instantiatedCell = Instantiate(CellPrefab, CellParent);
 
         if (instantiatedCell.TryGetComponent(out CellPrefabScript cps))
+        {
             cps.SetValues(cellData.BuildingSprite, cellData.GoldCost, cellData.GemCost);
+
+            cps.Buton?.onClick.AddListener(delegate { buildingCreator.CreateBuildingUnderCursor(cellData); });
+        }
         else
             Destroy(instantiatedCell);
     }

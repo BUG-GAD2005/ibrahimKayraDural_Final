@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] int startingGold = 10, startingGem = 10;
 
     int _gold, _gem;
+    GridMaker _grid;
     public int Gold => _gold;
     public int Gem => _gem;
+    public GridMaker Grid => _grid;
 
     private void Awake()
     {
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         Invoke("RefreshEvents", 1);
     }
 
-
+    public void SetGrid(GridMaker grid) => _grid = grid;
     public void RestartTheGame()
     {
         SetGold(startingGold);

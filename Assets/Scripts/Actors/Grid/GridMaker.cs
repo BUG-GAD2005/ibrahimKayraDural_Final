@@ -6,48 +6,79 @@ public class GridMaker : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] GameObject GridSquarePrefab;
+    [SerializeField] GameObject background;
 
     [Header("Values")]
-    [SerializeField] float squareSize = 4;
+    [SerializeField] float _squareSize = 2.5f;
     [SerializeField] int lengthX = 10, lengthY = 10;
-    [SerializeField] float offset = .05f;
+    [SerializeField] float _offset = .025f;
+    [SerializeField] float _backgroundOffset = .1f;
+
+    public float SquareSize => _squareSize;
+    public float Offset => _offset;
 
     Transform GridSquareParent;
-    List<GameObject> GridSquaresAsGo = new List<GameObject>();
-    List<GridSquare> GridSquaresAsScript = new List<GridSquare>();
+
+    List<GameObject> _gridSquaresAsGo = new List<GameObject>();
+    List<GridSquare> _gridSquaresAsScript = new List<GridSquare>();
+
+    public List<GameObject> GridSquaresAsGo => _gridSquaresAsGo;
+    public List<GridSquare> GridSquaresAsScript => _gridSquaresAsScript;
 
     void Start()
+    {
+        CreateGridParent();
+
+        GenerateGrid();
+
+        if (GridSquaresAsGo.Count > 0)
+        {
+            if (GridSquaresAsGo[0].TryGetComponent(out BoxCollider2D bc2d))
+            {
+                Vector3 targetVector = new Vector3(0, 0, 1);
+                targetVector.x += lengthX * (bc2d.size.x * _squareSize + _offset) + _backgroundOffset;
+                targetVector.y += lengthY * (bc2d.size.y * _squareSize + _offset) + _backgroundOffset;
+
+                background.transform.localScale = targetVector;
+                targetVector = new Vector3(background.transform.localScale.x / 2, -background.transform.localScale.y / 2, 0);
+                targetVector += new Vector3(-1, 1, 0) * (bc2d.size.x * _squareSize + _backgroundOffset) / 2;
+                background.transform.localPosition = targetVector;
+            }
+        }
+    }
+
+    void CreateGridParent()
     {
         GridSquareParent = new GameObject("GridSquareParent").transform;
         GridSquareParent.parent = transform;
         GridSquareParent.transform.localPosition = Vector3.zero;
-
-        GenerateGrid();
     }
 
     public void GenerateGrid()
     {
         DestroyGridSquares();
 
-        GridSquaresAsGo = new List<GameObject>();
-        GridSquaresAsScript = new List<GridSquare>();
+        _gridSquaresAsGo = new List<GameObject>();
+        _gridSquaresAsScript = new List<GridSquare>();
 
         for (int y = 0; y < lengthY; y++)
         {
             for (int x = 0; x < lengthX; x++)
             {
                 GameObject tempGO = Instantiate(GridSquarePrefab, Vector3.zero, Quaternion.identity, GridSquareParent);
-                tempGO.transform.localScale = new Vector3(1, 1, 0) * squareSize;
+                tempGO.transform.localScale = new Vector3(1, 1, 0) * _squareSize;
                 float tempGoScale = tempGO.GetComponent<BoxCollider2D>().size.x;
 
                 Vector3 targetPos = GridSquareParent.transform.position;
-                targetPos += new Vector3(x * (squareSize * tempGoScale + offset), -y * (squareSize * tempGoScale + offset), 0);
+                targetPos += new Vector3(x * (_squareSize * tempGoScale + _offset), -y * (_squareSize * tempGoScale + _offset), 0);
                 tempGO.transform.position = targetPos;
 
-                GridSquaresAsGo.Add(tempGO);
-                GridSquaresAsScript.Add(tempGO.GetComponent<GridSquare>());
+                _gridSquaresAsGo.Add(tempGO);
+                _gridSquaresAsScript.Add(tempGO.GetComponent<GridSquare>());
             }
         }
+
+        SendGridToGM();
     }
 
     void DestroyGridSquares() 
@@ -56,5 +87,11 @@ public class GridMaker : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+    void SendGridToGM()
+    {
+        if (GameManager.instance == null) return;
+
+        GameManager.instance.SetGrid(this);
     }
 }

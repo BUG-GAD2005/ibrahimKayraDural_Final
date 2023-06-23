@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShapePrefab: {fileID: 5239740362231092753, guid: 576d849423266dc4ba45b4d5ee977221, type: 3}
-  MAGENTA: {fileID: 3329076549993768826, guid: cb558f4d9e32f8549a427a05835f2873, type: 3}
+  ProgressBarPrefab: {fileID: 4702278617703123218, guid: a7d60185027ae6f4c8ef3916f8e1ba5f, type: 3}

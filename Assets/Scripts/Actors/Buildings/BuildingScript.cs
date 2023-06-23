@@ -5,9 +5,16 @@ using UnityEngine;
 public class BuildingScript : MonoBehaviour
 {
     [SerializeField] GameObject ShapePrefab;
+    [SerializeField] GameObject ProgressBarPrefab;
 
+    ProgressBar progressbar;
     SO_Building buildingData;
     BuildingSquare[] buildingSquares;
+
+    float targetSpeed;
+    float currentProgress;
+    int gemToGenerate, goldToGenerate;
+
     bool isInstantiated;
     bool isPlacable = true;
 
@@ -28,6 +35,13 @@ public class BuildingScript : MonoBehaviour
                 PlaceBuilding();
             } 
         }
+        else if(isInstantiated)
+        {
+            currentProgress = Mathf.Min(currentProgress + targetSpeed * Time.deltaTime, 1);
+            RefreshSlider();
+
+            if (currentProgress == 1) GenerateResources();
+        }
     }
 
     public void InstantiateBuilding(SO_Building buildingData)
@@ -42,9 +56,21 @@ public class BuildingScript : MonoBehaviour
             buildingSquares = sps.CreateShape(this.buildingData);
         }
 
+        targetSpeed = 1 / buildingData.GenerateDuration;
+        gemToGenerate = buildingData.GemToGenerate;
+        goldToGenerate = buildingData.GoldToGenerate;
+
         isInstantiated = true;
     }
 
+    void GenerateResources()
+    {
+        GameManager.instance.AddGold(goldToGenerate);
+        GameManager.instance.AddGem(gemToGenerate);
+
+        currentProgress = 0;
+        RefreshSlider();
+    }
     void PlaceBuilding()
     {
         if (isPlacable == false) return;
@@ -73,25 +99,9 @@ public class BuildingScript : MonoBehaviour
         foreach (BuildingSquare bs in buildingSquares)
         {
             bs.Place();
-            moveVectors.Add(bs.OccupiedGridSquare.transform.position);
         }
 
-        Vector2 MinMaxPositionX = buildingSquares[0].OccupiedGridSquare.transform.position.x * Vector2.one;
-        Vector2 MinMaxPositionY = buildingSquares[0].OccupiedGridSquare.transform.position.y * Vector2.one;
-
-        foreach (Vector3 v in moveVectors)
-        {
-            MinMaxPositionX.x = Mathf.Min(v.x, MinMaxPositionX.x);
-            MinMaxPositionX.y = Mathf.Max(v.x, MinMaxPositionX.y);
-            MinMaxPositionY.x = Mathf.Min(v.y, MinMaxPositionY.x);
-            MinMaxPositionY.y = Mathf.Max(v.y, MinMaxPositionY.y);
-        }
-
-
-        Vector3 averagePosition = Vector3.zero;
-        averagePosition.x = MinMaxPositionX.x + ((MinMaxPositionX.y - MinMaxPositionX.x) / 2);
-        averagePosition.y = MinMaxPositionY.x + ((MinMaxPositionY.y - MinMaxPositionY.x) / 2);
-
+        CreateProgressBar(buildingSquares[0].OccupiedGridSquare.transform.position);
         transform.position = buildingSquares[0].OccupiedGridSquare.transform.position;
 
         isPlacable = false;
@@ -99,5 +109,22 @@ public class BuildingScript : MonoBehaviour
     void CancelBuilding()
     {
         Destroy(gameObject);
+    }
+
+    void CreateProgressBar(Vector3 position)
+    {
+        GameObject tempGO = Instantiate(ProgressBarPrefab, transform.position, Quaternion.identity, transform);
+        Vector3 targetScale = GameManager.instance.Grid.SquareSize * new Vector3(1, 1, 1);
+        targetScale.z = 1;
+
+        progressbar = tempGO.GetComponent<ProgressBar>();
+        progressbar.Initiate(targetScale, position);
+    }
+
+    void RefreshSlider()
+    {
+        if (progressbar == null) return;
+
+        progressbar.SetValue(currentProgress);
     }
 }

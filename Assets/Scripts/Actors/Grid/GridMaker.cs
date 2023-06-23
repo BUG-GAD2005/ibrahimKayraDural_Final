@@ -81,6 +81,19 @@ public class GridMaker : MonoBehaviour
         SendGridToGM();
     }
 
+    public void Clear()
+    {
+        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+        foreach(GameObject go in buildings)
+        {
+            Destroy(go);
+        }
+
+        foreach(GridSquare gs in _gridSquaresAsScript)
+        {
+            gs.UnOccupy();
+        }
+    }
     void DestroyGridSquares() 
     {
         foreach (Transform child in GridSquareParent)

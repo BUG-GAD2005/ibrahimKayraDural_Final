@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     {
         SetGold(startingGold);
         SetGem(startingGem);
+
+        Grid.Clear();
     }
     public void RefreshEvents()
     {

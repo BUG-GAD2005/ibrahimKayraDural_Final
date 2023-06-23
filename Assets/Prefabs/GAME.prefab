@@ -512,6 +512,51 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &241945435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 241945436}
+  - component: {fileID: 241945437}
+  m_Layer: 0
+  m_Name: BuildingCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &241945436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241945435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6008311588538781161}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &241945437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241945435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e743b5b4ad456574ea747fc643aa834c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuildingPrefab: {fileID: 6260739543323030161, guid: 44f22da834ae44745a2dcedbccaaedfa, type: 3}
 --- !u!1 &279048831
 GameObject:
   m_ObjectHideFlags: 0
@@ -3859,7 +3904,6 @@ GameObject:
   m_Component:
   - component: {fileID: 733737228498642082}
   - component: {fileID: 8439061581428450026}
-  - component: {fileID: 1606093245}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3896,19 +3940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingGold: 10
   startingGem: 10
---- !u!114 &1606093245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167334006822760929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e743b5b4ad456574ea747fc643aa834c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BuildingPrefab: {fileID: 6260739543323030161, guid: 44f22da834ae44745a2dcedbccaaedfa, type: 3}
 --- !u!1 &2951536310678651486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,6 +3972,7 @@ Transform:
   - {fileID: 733737228498642082}
   - {fileID: 7130833889547539171}
   - {fileID: 898289477}
+  - {fileID: 241945436}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3993,7 +4025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellPrefab: {fileID: 3237569796905854277, guid: 676be85b7fce65548b7fdfd687a80ce7, type: 3}
   CellParent: {fileID: 1913494933}
-  buildingCreator: {fileID: 1606093245}
+  buildingCreator: {fileID: 0}
 --- !u!114 &6873272065270599363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4029,11 +4061,11 @@ PrefabInstance:
       objectReference: {fileID: 530857475}
     - target: {fileID: 2922753710928584434, guid: 8b54d93aaf8c70742857c16371b23974, type: 3}
       propertyPath: _squareSize
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2922753710928584434, guid: 8b54d93aaf8c70742857c16371b23974, type: 3}
       propertyPath: _backgroundOffset
-      value: 0.25
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2922753710928584435, guid: 8b54d93aaf8c70742857c16371b23974, type: 3}
       propertyPath: m_RootOrder

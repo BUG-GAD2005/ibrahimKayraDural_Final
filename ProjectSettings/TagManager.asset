@@ -48,3 +48,6 @@ TagManager:
   - name: Foreground
     uniqueID: 881446769
     locked: 0
+  - name: UIForeground
+    uniqueID: 3717259425
+    locked: 0

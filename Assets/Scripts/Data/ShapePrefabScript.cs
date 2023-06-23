@@ -6,9 +6,10 @@ public class ShapePrefabScript : MonoBehaviour
 {
     [SerializeField] GameObject GridSquarePrefab;
 
+    List<BuildingSquare> buildingSquares = new List<BuildingSquare>();
     bool isCreated;
 
-    public Transform CreateShape(SO_Building data)
+    public BuildingSquare[] CreateShape(SO_Building data)
     {
         if (isCreated) return null;
 
@@ -35,6 +36,7 @@ public class ShapePrefabScript : MonoBehaviour
 
                     if(tempGO.TryGetComponent(out BuildingSquare BSq))
                     {
+                        buildingSquares.Add(BSq);
                         BSq.SetImage(data);
                     }
                 }
@@ -42,6 +44,6 @@ public class ShapePrefabScript : MonoBehaviour
         }
 
         isCreated = true;
-        return transform;
+        return buildingSquares.ToArray();
     }
 }

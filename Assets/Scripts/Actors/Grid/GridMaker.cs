@@ -10,7 +10,6 @@ public class GridMaker : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] float _squareSize = 2.5f;
-    [SerializeField] int lengthX = 10, lengthY = 10;
     [SerializeField] float _offset = .025f;
     [SerializeField] float _backgroundOffset = .1f;
 
@@ -25,6 +24,10 @@ public class GridMaker : MonoBehaviour
     public List<GameObject> GridSquaresAsGo => _gridSquaresAsGo;
     public List<GridSquare> GridSquaresAsScript => _gridSquaresAsScript;
 
+    void Awake()
+    {
+        SaveLoadManager.gridMaker = this;
+    }
     void Start()
     {
         CreateGridParent();
@@ -36,8 +39,8 @@ public class GridMaker : MonoBehaviour
             if (GridSquaresAsGo[0].TryGetComponent(out BoxCollider2D bc2d))
             {
                 Vector3 targetVector = new Vector3(0, 0, 1);
-                targetVector.x += lengthX * (bc2d.size.x * _squareSize + _offset) + _backgroundOffset;
-                targetVector.y += lengthY * (bc2d.size.y * _squareSize + _offset) + _backgroundOffset;
+                targetVector.x += 10 * (bc2d.size.x * _squareSize + _offset) + _backgroundOffset;
+                targetVector.y += 10 * (bc2d.size.y * _squareSize + _offset) + _backgroundOffset;
 
                 background.transform.localScale = targetVector;
                 targetVector = new Vector3(background.transform.localScale.x / 2, -background.transform.localScale.y / 2, 0);
@@ -47,6 +50,15 @@ public class GridMaker : MonoBehaviour
         }
     }
 
+    public Vector3 GetPositionFromIndex(int index)
+    {
+        if(GridSquaresAsGo[index] != null)
+        {
+            return GridSquaresAsGo[index].transform.position;
+        }
+
+        return Vector3.zero;
+    }
     void CreateGridParent()
     {
         GridSquareParent = new GameObject("GridSquareParent").transform;
@@ -61,9 +73,9 @@ public class GridMaker : MonoBehaviour
         _gridSquaresAsGo = new List<GameObject>();
         _gridSquaresAsScript = new List<GridSquare>();
 
-        for (int y = 0; y < lengthY; y++)
+        for (int y = 0; y < 10; y++)
         {
-            for (int x = 0; x < lengthX; x++)
+            for (int x = 0; x < 10; x++)
             {
                 GameObject tempGO = Instantiate(GridSquarePrefab, Vector3.zero, Quaternion.identity, GridSquareParent);
                 tempGO.transform.localScale = new Vector3(1, 1, 0) * _squareSize;
@@ -73,6 +85,8 @@ public class GridMaker : MonoBehaviour
                 targetPos += new Vector3(x * (_squareSize * tempGoScale + _offset), -y * (_squareSize * tempGoScale + _offset), 0);
                 tempGO.transform.position = targetPos;
 
+                tempGO.GetComponent<GridSquare>().SetIndex(y * 10 + x);
+
                 _gridSquaresAsGo.Add(tempGO);
                 _gridSquaresAsScript.Add(tempGO.GetComponent<GridSquare>());
             }
@@ -81,6 +95,18 @@ public class GridMaker : MonoBehaviour
         SendGridToGM();
     }
 
+    public int[] GetOccupiedGridIndexes()
+    {
+        List<int> tempList = new List<int>();
+
+        for(int i = 0; i < 100; i++)
+        {
+            if (_gridSquaresAsScript[i].IsOccupied)
+                tempList.Add(i);
+        }
+
+        return tempList.ToArray();
+    }
     public void Clear()
     {
         GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");

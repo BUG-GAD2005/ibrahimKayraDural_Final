@@ -12,6 +12,7 @@ public class BuildingCreator : MonoBehaviour
         GameObject tempGO = Instantiate(BuildingPrefab, targetPos, Quaternion.identity);
         if(tempGO.TryGetComponent(out BuildingScript bs))
         {
+            bs.isPlacable = true;
             bs.InstantiateBuilding(data);
         }
     }

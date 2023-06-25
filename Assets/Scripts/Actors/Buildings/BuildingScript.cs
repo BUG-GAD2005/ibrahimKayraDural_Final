@@ -16,8 +16,17 @@ public class BuildingScript : MonoBehaviour
     int gemToGenerate, goldToGenerate;
 
     bool isInstantiated;
-    bool isPlacable = true;
+    public bool isPlacable = false;
 
+    int _occupiedGridSquareIndex = -1;
+    public int OccupiedGridSquareIndex => _occupiedGridSquareIndex;
+    string _buildingDataName = "UNKNOWN";
+    public string BuildingDataName => _buildingDataName;
+
+    void Awake()
+    {
+        SaveLoadManager.buildingList.Add(this);
+    }
     void Update()
     {
         if (isPlacable)
@@ -28,7 +37,7 @@ public class BuildingScript : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))
             {
-                CancelBuilding();
+                DestroyBuilding();
             }
             if (Input.GetMouseButtonDown(0))
             {
@@ -47,6 +56,7 @@ public class BuildingScript : MonoBehaviour
     public void InstantiateBuilding(SO_Building buildingData)
     {
         this.buildingData = buildingData;
+        _buildingDataName = buildingData.name;
 
         GameObject tempGO = Instantiate(ShapePrefab, Vector3.zero, Quaternion.identity, transform);
         tempGO.transform.localPosition = Vector3.zero;
@@ -62,6 +72,15 @@ public class BuildingScript : MonoBehaviour
 
         isInstantiated = true;
     }
+    public void PlaceBuildingFromLoad()
+    {
+        if (OccupiedGridSquareIndex == -1) return;
+
+        Vector3 targetPos = GameManager.instance.Grid.GetPositionFromIndex(OccupiedGridSquareIndex);
+        transform.position = targetPos;
+
+        PlaceProgressBar();
+    }
 
     void GenerateResources()
     {
@@ -76,7 +95,7 @@ public class BuildingScript : MonoBehaviour
         if (isPlacable == false) return;
         if (isInstantiated == false)
         {
-            CancelBuilding();
+            DestroyBuilding();
             return;
         }
 
@@ -91,26 +110,38 @@ public class BuildingScript : MonoBehaviour
         }
         if (cannotPlace)
         {
-            CancelBuilding();
+            DestroyBuilding();
             return;
         }
 
-        List<Vector3> moveVectors = new List<Vector3>();
         foreach (BuildingSquare bs in buildingSquares)
         {
             bs.Place();
         }
 
-        CreateProgressBar(buildingSquares[0].OccupiedGridSquare.transform.position);
-        transform.position = buildingSquares[0].OccupiedGridSquare.transform.position;
+        PlaceProgressBar();
 
         isPlacable = false;
     }
-    void CancelBuilding()
+
+    void DestroyBuilding()
     {
+        SaveLoadManager.buildingList.Remove(this);
+
         Destroy(gameObject);
     }
 
+    void PlaceProgressBar()
+    {
+        GridSquare tempGS = buildingSquares[0]?.OccupiedGridSquare;
+
+        if (tempGS != null)
+        {
+            CreateProgressBar(tempGS.transform.position);
+            transform.position = tempGS.transform.position;
+            _occupiedGridSquareIndex = tempGS.Index;
+        }
+    }
     void CreateProgressBar(Vector3 position)
     {
         GameObject tempGO = Instantiate(ProgressBarPrefab, transform.position, Quaternion.identity, transform);

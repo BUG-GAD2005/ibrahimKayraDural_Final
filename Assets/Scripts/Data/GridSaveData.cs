@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GridSaveData : MonoBehaviour
+public class GridSaveData
 {
     public int[] occupiedGridIndexes;
 

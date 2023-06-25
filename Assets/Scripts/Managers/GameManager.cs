@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         SetGold(startingGold);
         SetGem(startingGem);
 
+        DestroyBuildingsOnScene();
         Grid.Clear();
     }
     public void RefreshEvents()
@@ -80,6 +81,15 @@ public class GameManager : MonoBehaviour
     public void TryRemoveGemForButtons(int amount) => TryRemoveGem(amount);
     public void TryRemoveGoldForButtons(int amount) => TryRemoveGold(amount);
 
+    void DestroyBuildingsOnScene()
+    {
+        BuildingScript[] buildingScript = FindObjectsOfType<BuildingScript>();
+
+        foreach (BuildingScript bs in buildingScript)
+        {
+            bs.DestroyBuilding();
+        }
+    }
     void SetGold(int amount)
     {
         _gold = amount;

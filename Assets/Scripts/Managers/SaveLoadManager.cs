@@ -18,6 +18,16 @@ public class SaveLoadManager : MonoBehaviour
 
     void Awake()
     {
+        gridMaker.event_gridSquaresReady += GridMaker_event_gridSquaresReady; ;
+    }
+
+    void GridMaker_event_gridSquaresReady(object sender, GridSquare[] e)
+    {
+        LoadDatas();
+    }
+
+    void LoadDatas()
+    {
         LoadGrid();
         LoadBuilding();
     }
@@ -50,11 +60,11 @@ public class SaveLoadManager : MonoBehaviour
             stream.Close();
 
             occupiedGridIndexes = data.occupiedGridIndexes;
-            GridSquare[] tempGOs = gridMaker.GridSquaresAsScript.ToArray();
+            GridSquare[] tempGS = gridMaker.GridSquaresAsScript.ToArray();
 
             foreach (int i in occupiedGridIndexes)
             {
-                tempGOs[i].Occupy();
+                tempGS[i].Occupy();
             }
         }
     }
@@ -74,6 +84,7 @@ public class SaveLoadManager : MonoBehaviour
             FileStream stream = new FileStream(path + i, FileMode.Create);
             BuildingSaveData data = new BuildingSaveData(buildingList[i]);
 
+            Debug.Log(data.BuildingDataName + " placed at " + data.PlacedGridIndex);
             formatter.Serialize(stream, data);
             stream.Close();
         }
@@ -121,7 +132,7 @@ public class SaveLoadManager : MonoBehaviour
 
                 if (so_building != null)
                 {
-                    buildingScript.InstantiateBuilding(so_building);
+                    buildingScript.InstantiateBuilding(so_building, data.PlacedGridIndex);
                     buildingScript.PlaceBuildingFromLoad();
                 }
             }
@@ -130,5 +141,16 @@ public class SaveLoadManager : MonoBehaviour
                 Debug.LogError("Path not found in " + path + i);
             }
         }
+    }
+
+    public void DeleteSaves()
+    {
+        string persistentPath = Application.persistentDataPath;
+
+        occupiedGridIndexes = null;
+
+        File.Delete(persistentPath + BUILDING_COUNT_SUB);
+        File.Delete(persistentPath + BUILDING_SUB);
+        File.Delete(persistentPath + GRID_SUB);
     }
 }

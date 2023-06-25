@@ -53,7 +53,7 @@ public class BuildingScript : MonoBehaviour
         }
     }
 
-    public void InstantiateBuilding(SO_Building buildingData)
+    public void InstantiateBuilding(SO_Building buildingData, int placedGridIndex = -1)
     {
         this.buildingData = buildingData;
         _buildingDataName = buildingData.name;
@@ -70,6 +70,11 @@ public class BuildingScript : MonoBehaviour
         gemToGenerate = buildingData.GemToGenerate;
         goldToGenerate = buildingData.GoldToGenerate;
 
+        if(placedGridIndex != -1)
+        {
+            _occupiedGridSquareIndex = placedGridIndex;
+        }
+
         isInstantiated = true;
     }
     public void PlaceBuildingFromLoad()
@@ -80,6 +85,7 @@ public class BuildingScript : MonoBehaviour
         transform.position = targetPos;
 
         PlaceProgressBar();
+        isPlacable = false;
     }
 
     void GenerateResources()
@@ -124,7 +130,7 @@ public class BuildingScript : MonoBehaviour
         isPlacable = false;
     }
 
-    void DestroyBuilding()
+    public void DestroyBuilding()
     {
         SaveLoadManager.buildingList.Remove(this);
 

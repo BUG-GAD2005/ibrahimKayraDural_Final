@@ -370,6 +370,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1602828604}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: DeleteSaves
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: SaveLoadManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114984300, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2951536310678651486, guid: 2045e97ae0efd8d44b5a7bbae5daed41, type: 3}
       propertyPath: m_Name
       value: GAME

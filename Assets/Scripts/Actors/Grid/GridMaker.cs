@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class GridMaker : MonoBehaviour
 
     public List<GameObject> GridSquaresAsGo => _gridSquaresAsGo;
     public List<GridSquare> GridSquaresAsScript => _gridSquaresAsScript;
+
+    public event EventHandler<GridSquare[]> event_gridSquaresReady;
 
     void Awake()
     {
@@ -93,6 +96,7 @@ public class GridMaker : MonoBehaviour
         }
 
         SendGridToGM();
+        event_gridSquaresReady?.Invoke(this, _gridSquaresAsScript.ToArray());
     }
 
     public int[] GetOccupiedGridIndexes()
@@ -109,12 +113,6 @@ public class GridMaker : MonoBehaviour
     }
     public void Clear()
     {
-        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
-        foreach(GameObject go in buildings)
-        {
-            Destroy(go);
-        }
-
         foreach(GridSquare gs in _gridSquaresAsScript)
         {
             gs.UnOccupy();

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BuildingSaveData : MonoBehaviour
+public class BuildingSaveData
 {
     public int PlacedGridIndex;
     public string BuildingDataName;

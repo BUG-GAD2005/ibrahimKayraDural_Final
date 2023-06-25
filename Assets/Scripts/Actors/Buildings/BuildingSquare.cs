@@ -54,6 +54,15 @@ public class BuildingSquare : MonoBehaviour
         SR_overlay.sortingOrder = 13;
         SR_overlay.enabled = false;
     }
+    public void PlaceFromLoad()
+    {
+        _isPlacable = false;
+
+        SR_background.sortingOrder = 11;
+        SR_image.sortingOrder = 12;
+        SR_overlay.sortingOrder = 13;
+        SR_overlay.enabled = false;
+    }
     public void SetImage(SO_Building data)
     {
         SR_image.sprite = data.BuildingSprite;

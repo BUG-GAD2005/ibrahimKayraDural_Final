@@ -84,7 +84,12 @@ public class BuildingScript : MonoBehaviour
         Vector3 targetPos = GameManager.instance.Grid.GetPositionFromIndex(OccupiedGridSquareIndex);
         transform.position = targetPos;
 
-        PlaceProgressBar();
+        foreach (BuildingSquare bs in buildingSquares)
+        {
+            bs.PlaceFromLoad();
+        }
+
+        CreateProgressBar(transform.position);
         isPlacable = false;
     }
 
@@ -125,7 +130,11 @@ public class BuildingScript : MonoBehaviour
             bs.Place();
         }
 
-        PlaceProgressBar();
+        GridSquare tempGS = buildingSquares[0]?.OccupiedGridSquare;
+
+        CreateProgressBar(tempGS.transform.position);
+        transform.position = tempGS.transform.position;
+        _occupiedGridSquareIndex = tempGS.Index;
 
         isPlacable = false;
     }
@@ -135,18 +144,6 @@ public class BuildingScript : MonoBehaviour
         SaveLoadManager.buildingList.Remove(this);
 
         Destroy(gameObject);
-    }
-
-    void PlaceProgressBar()
-    {
-        GridSquare tempGS = buildingSquares[0]?.OccupiedGridSquare;
-
-        if (tempGS != null)
-        {
-            CreateProgressBar(tempGS.transform.position);
-            transform.position = tempGS.transform.position;
-            _occupiedGridSquareIndex = tempGS.Index;
-        }
     }
     void CreateProgressBar(Vector3 position)
     {

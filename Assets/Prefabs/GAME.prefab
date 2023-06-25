@@ -3894,6 +3894,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1602828604}
+        m_TargetAssemblyTypeName: SaveLoadManager, Assembly-CSharp
+        m_MethodName: DeleteSaves
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1167334006822760929
 GameObject:
   m_ObjectHideFlags: 0
@@ -4050,6 +4062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4662721180161511871}
+  - component: {fileID: 1602828604}
   m_Layer: 0
   m_Name: SaveLoadManager
   m_TagString: Untagged
@@ -4072,6 +4085,19 @@ Transform:
   m_Father: {fileID: 6008311588538781161}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1602828604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989848964608891486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af65c2fb73eb2c438e51ef022cdf1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPrefab: {fileID: 6260739543323030161, guid: 44f22da834ae44745a2dcedbccaaedfa, type: 3}
 --- !u!1001 &2922753711775191478
 PrefabInstance:
   m_ObjectHideFlags: 0

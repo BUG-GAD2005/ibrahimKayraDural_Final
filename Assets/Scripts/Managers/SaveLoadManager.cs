@@ -14,6 +14,7 @@ public class SaveLoadManager : MonoBehaviour
 
     const string GRID_SUB = "/grid";
     const string BUILDING_SUB = "/building";
+    const string SCORE_SUB = "/score";
     const string BUILDING_COUNT_SUB = "/building.count";
 
     void Awake()
@@ -30,11 +31,13 @@ public class SaveLoadManager : MonoBehaviour
     {
         LoadGrid();
         LoadBuilding();
+        LoadScore();
     }
     void OnApplicationQuit()
     {
         SaveGrid();
         SaveBuilding();
+        SaveScore();
     }
 
     void SaveGrid()
@@ -48,27 +51,6 @@ public class SaveLoadManager : MonoBehaviour
         formatter.Serialize(gridStream, gridSaveData);
         gridStream.Close();
     }
-    void LoadGrid()
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + GRID_SUB;
-
-        if(File.Exists(path))
-        {
-            FileStream stream = new FileStream(path, FileMode.Open);
-            GridSaveData data = formatter.Deserialize(stream) as GridSaveData;
-            stream.Close();
-
-            occupiedGridIndexes = data.occupiedGridIndexes;
-            GridSquare[] tempGS = gridMaker.GridSquaresAsScript.ToArray();
-
-            foreach (int i in occupiedGridIndexes)
-            {
-                tempGS[i].Occupy();
-            }
-        }
-    }
-
     void SaveBuilding()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -84,12 +66,41 @@ public class SaveLoadManager : MonoBehaviour
             FileStream stream = new FileStream(path + i, FileMode.Create);
             BuildingSaveData data = new BuildingSaveData(buildingList[i]);
 
-            Debug.Log(data.BuildingDataName + " placed at " + data.PlacedGridIndex);
             formatter.Serialize(stream, data);
             stream.Close();
         }
     }
+    void SaveScore()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + SCORE_SUB;
 
+        FileStream stream = new FileStream(path, FileMode.Create);
+        ScoreSaveData scoreSaveData = new ScoreSaveData(GameManager.instance);
+
+        formatter.Serialize(stream, scoreSaveData);
+        stream.Close();
+    }
+    void LoadGrid()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + GRID_SUB;
+
+        if (File.Exists(path))
+        {
+            FileStream stream = new FileStream(path, FileMode.Open);
+            GridSaveData data = formatter.Deserialize(stream) as GridSaveData;
+            stream.Close();
+
+            occupiedGridIndexes = data.occupiedGridIndexes;
+            GridSquare[] tempGS = gridMaker.GridSquaresAsScript.ToArray();
+
+            foreach (int i in occupiedGridIndexes)
+            {
+                tempGS[i].Occupy();
+            }
+        }
+    }
     void LoadBuilding()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -140,6 +151,21 @@ public class SaveLoadManager : MonoBehaviour
             {
                 Debug.LogError("Path not found in " + path + i);
             }
+        }
+    }
+    void LoadScore()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + SCORE_SUB;
+
+        if(File.Exists(path))
+        {
+            FileStream stream = new FileStream(path, FileMode.Open);
+            ScoreSaveData data = formatter.Deserialize(stream) as ScoreSaveData;
+            stream.Close();
+
+            GameManager.instance.SetGold(data.goldAmount);
+            GameManager.instance.SetGem(data.gemAmount);
         }
     }
 

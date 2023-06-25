@@ -90,12 +90,12 @@ public class GameManager : MonoBehaviour
             bs.DestroyBuilding();
         }
     }
-    void SetGold(int amount)
+    public void SetGold(int amount)
     {
         _gold = amount;
         event_ValueChanged_Gold?.Invoke(this, _gold);
     }
-    void SetGem(int amount)
+    public void SetGem(int amount)
     {
         _gem = amount;
         event_ValueChanged_Gem?.Invoke(this, _gem);

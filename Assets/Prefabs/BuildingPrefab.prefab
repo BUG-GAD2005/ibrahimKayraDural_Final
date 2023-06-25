@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapePrefab: {fileID: 5239740362231092753, guid: 576d849423266dc4ba45b4d5ee977221, type: 3}
   ProgressBarPrefab: {fileID: 4702278617703123218, guid: a7d60185027ae6f4c8ef3916f8e1ba5f, type: 3}
+  FloatingTextPrefab: {fileID: 4802624269497720054, guid: 6254122cacab2aa409c3416fc4908449, type: 3}
+  isPlacable: 0

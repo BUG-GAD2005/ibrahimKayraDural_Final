@@ -6,6 +6,7 @@ public class BuildingScript : MonoBehaviour
 {
     [SerializeField] GameObject ShapePrefab;
     [SerializeField] GameObject ProgressBarPrefab;
+    [SerializeField] GameObject FloatingTextPrefab;
 
     ProgressBar progressbar;
     SO_Building buildingData;
@@ -97,6 +98,9 @@ public class BuildingScript : MonoBehaviour
     {
         GameManager.instance.AddGold(goldToGenerate);
         GameManager.instance.AddGem(gemToGenerate);
+
+        GameObject temp = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity);
+        temp.GetComponent<FloatingText>().InstantiateText(goldToGenerate, gemToGenerate);
 
         currentProgress = 0;
         RefreshSlider();

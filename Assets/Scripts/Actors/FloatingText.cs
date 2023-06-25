@@ -36,7 +36,7 @@ public class FloatingText : MonoBehaviour
     public void InstantiateText(int gold, int gem)
     {
         goldTextMesh.text = gold + " GOLD";
-        gemTextMesh.text = gem + "GEM";
+        gemTextMesh.text = gem + " GEM";
         if (mesh != null) { mesh.SetActive(true); }
         TargetTime_decay = Time.time + decayTime;
 

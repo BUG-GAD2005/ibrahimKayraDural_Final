@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public event EventHandler<int> event_ValueChanged_Gem;
 
     [SerializeField] int startingGold = 10, startingGem = 10;
+    [SerializeField] GameObject LoadingScreen;
 
     int _gold, _gem;
     GridMaker _grid;
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
         _gold = startingGold;
         _gem = startingGem;
 
-        Invoke("RefreshEvents", 1);
+        Invoke("LoadGame", 1.5f);
     }
 
     public void SetGrid(GridMaker grid) => _grid = grid;
@@ -42,6 +43,14 @@ public class GameManager : MonoBehaviour
 
         DestroyBuildingsOnScene();
         Grid.Clear();
+    }
+    void LoadGame()
+    {
+        RefreshEvents();
+
+        if (LoadingScreen != null)
+            LoadingScreen.SetActive(false);
+
     }
     public void RefreshEvents()
     {

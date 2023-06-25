@@ -19,10 +19,9 @@ public class SaveLoadManager : MonoBehaviour
 
     void Awake()
     {
-        gridMaker.event_gridSquaresReady += GridMaker_event_gridSquaresReady; ;
+        Invoke("LateAwake", 1);
     }
-
-    void GridMaker_event_gridSquaresReady(object sender, GridSquare[] e)
+    void LateAwake()
     {
         LoadDatas();
     }
